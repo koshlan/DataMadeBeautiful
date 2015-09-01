@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1"/>
+    <title>Kern County: The Almonds of Wrath</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css"/>
+    <script type="text/javascript" src="../../lib/d3.js"></script>
+    <script type="text/javascript" src="../../lib/topojson.js"></script>
+
+    <style>
+        .states {
+			
+            fill: #eee; 
+            stroke: #000;
+            stroke-linejoin: round;
+        }
+        .counties {
+			
+            fill: #eee; 
+            stroke: #000;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<h1>Almonds of Wrath?</h1>
+<h3>Permitted Agriculture in
+	Kern County, California</h3>
+<img src="DMb.png" align="right">	
+<span id="range">2007</span>
+<input id="slider" type="range" min="2007" max="2014" value="1987" step="1" />
+<span id="range">2014</span> 
+<p>2007</p>
+<script type="text/javascript">
+	var year = d3.select("p");
+
+	d3.select("input[type=range]").on("change", function() {
+	    new_year = this.value;
+	    year.text(new_year);
+	});
+	var width = 960,
+        height = 500;
+
+    var color = d3.scale.threshold()
+            .domain([.02, .04, .06, .08, .10]) // <-A
+            .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+
+	var projection = d3.geo.albers()
+	    .translate([width/2, height/2])
+	    .scale(30000)
+	    .rotate([119.0167, 0])
+	    .center([0, 35.3667]); 
+	
+    var path = d3.geo.path()
+		.projection(projection);
+	// First Modification is too change the projection see above
+	
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    var g = svg.append("g")
+            .call(d3.behavior.zoom()
+			// 2nd Mod, is to allow scale extent to extend backwards from tight start
+            .scaleExtent([.5,100])
+            .on("zoom", zoom));
+
+    d3.json("kernTOPOJSON.json", function (error, us) {
+	//d3.json("kerntest50tsTOPOJSON.json", function (error, us) {		
+	//d3.json("../../data/us.json", function (error, us) {
+		// 3rd modification is to provide a new topojson
+        // 4th modification is to remove the chunk on employment
+		// d3.tsv("../../data/unemployment.tsv", function (error, unemployment) {
+		//             var rateById = {};
+		//
+		//             unemployment.forEach(function (d) {  
+		//                 rateById[d.id] = +d.rate;
+		//             });
+
+            g.append("g")
+                    .attr("class", "counties")
+                    .selectAll("path")
+					.data(topojson.feature(us, us.objects.kerntest50).features)
+					//.data(topojson.feature(us, us.objects.kerntest50ts).features)
+                    //.data(topojson.feature(us, us.objects.counties).features)
+                    .enter().append("path")
+					.attr("d", path);
+                    //.style("fill", function (d) {
+                    //    return color(rateById[d.id]); 
+                    //});
+
+            // g.append("path")
+ //                    .datum(topojson.mesh(us, us.objects.kerntest50ts, function(a, b) { return a !== b; }))
+ // 					//.datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+ //                    .attr("class", "states")
+ //                    .attr("d", path);
+        //});
+    });
+
+    function zoom() {
+        g.attr("transform", "translate("
+                + d3.event.translate
+                + ")scale(" + d3.event.scale + ")");
+    }
+
+</script>
+
+</body>
+
+</html>
