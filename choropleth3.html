@@ -26,22 +26,40 @@
 
 <body>
 
+<img src="DMb.png" align="center">	
 
-<h1>Almonds of Wrath?</h1>
-<h3>Permitted Agriculture in
-	Kern County, California</h3>
-<img src="DMb.png" align="right">	
+<h3>Almonds of Wrath?</h3>
+
+<b>Navigation</b>: This is an interactive data vizualization 
+built in D3 and tested using Mozilla Firefox 40.0.3. Use the slider bar to select a year. 
+The map can be further explored by double clicking a region to zoom. Hold the mouse and drag in order to pan. 
+<br>
+<br><b>Data</b>: Polygons represent agriculturally permited boundaries in 2004, 
+	based on data from the <a href="http://www.kernag.com/gis/gis-data.asp">
+	Kern County Office of Agricultural and Measurement Standards</a>.
+	Cover-type classification of each parcel is assigend using a raster crop cover-type data layer released by
+	the <a href = "http://nassgeodata.gmu.edu/CropScape/"> National Agricultural 
+	Satistics Service</a>, based primarily on 30-meter resolution Landsat sattelite imagery. 
+<br>
+<br>
+
+Land cover under active cultivation of Almonds (orange) or Pistachio (green) nuts are shown. 
+
+
+
+
 
 <span id="range">2007</span>
 <input id="slider" type="range" min="2007" max="2014" value="1987" step="1" />
 <span id="range">2014</span> 
 <p>2007</p>
 
+<h4>Permitted Agriculture in North Kern County, California.</h4>
 <script type="text/javascript">
 	
 	
 	var width = 960,
-        height = 500;
+        height = 600;
 
 	// var color = d3.scale.threshold()
 //         .domain([.02, .04, .06, .08, .10]) // <-A
@@ -53,7 +71,7 @@
 
 	var projection = d3.geo.albers()
 	    .translate([width/2, height/2])
-	    .scale(30000)
+	    .scale(35000)
 	    .rotate([119.0167, 0])
 	    .center([0, 35.3667]); 
 	
@@ -72,7 +90,19 @@
             .scaleExtent([.5,100])
             .on("zoom", zoom));
 	
+	d3.json("kt_north_d3_topojson.json", function (error, us) {
+		g.append("g")
+        	.attr("class", "counties")
+        	.selectAll("path")
+			.data(topojson.feature(us, us.objects.kt_north_d3).features)
+		//.data(topojson.feature(us, us.objects.kerntest50ts).features)
+        //.data(topojson.feature(us, us.objects.counties).features)
+        	.enter().append("path")
+			.attr("d", path)                    
+			.style("fill", "white");
+	});
 	var year = d3.select("p");
+	
 	d3.select("input[type=range]").on("change", function() {
 			    new_year = this.value;
 			    year.text(new_year);

@@ -4,4 +4,9 @@ TopoJSON objects have an id feature.
 
 There for rather than binding properties to the data we can use the id as the lookup in a dictionary. 
 
+# Create a csv with the columns, almonds(binary): pistachios(binary): color_code (number): color_hex
+
+
+
+
 
