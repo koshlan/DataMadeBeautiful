@@ -1,0 +1,7 @@
+TopoJSON objects have an id feature.
+
+{"type":"Topology","objects":{"kerntest50":{"type":"GeometryCollection","geometries":[{"type":"Polygon","id":0,"arcs":[[0]]}...
+
+There for rather than binding properties to the data we can use the id as the lookup in a dictionary. 
+
+

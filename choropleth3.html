@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1"/>
+    <title>Kern County: The Almonds of Wrath</title>
+    <link rel="stylesheet" type="text/css" href="../../css/styles.css"/>
+    <script type="text/javascript" src="../../lib/d3.js"></script>
+    <script type="text/javascript" src="../../lib/topojson.js"></script>
+
+    <style>
+        .states {
+			
+            fill: #eee; 
+            stroke: #000;
+            stroke-linejoin: round;
+        }
+        .counties {
+			
+            fill: #eee; 
+            stroke: #000;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<h1>Almonds of Wrath?</h1>
+<h3>Permitted Agriculture in
+	Kern County, California</h3>
+<img src="DMb.png" align="right">	
+
+<span id="range">2007</span>
+<input id="slider" type="range" min="2007" max="2014" value="1987" step="1" />
+<span id="range">2014</span> 
+<p>2007</p>
+
+<script type="text/javascript">
+	
+	
+	var width = 960,
+        height = 500;
+
+	// var color = d3.scale.threshold()
+//         .domain([.02, .04, .06, .08, .10]) // <-A
+//         .range(["#f2f0f7", "#dadaeb", "#bcbddc", "#9e9ac8", "#756bb1", "#54278f"]);
+
+	var color = d3.scale.ordinal()
+				.domain(["0","75","204"])
+	 			.range(["#c7c7c7","#ff7f0e", "#aec7e8"]);
+
+	var projection = d3.geo.albers()
+	    .translate([width/2, height/2])
+	    .scale(30000)
+	    .rotate([119.0167, 0])
+	    .center([0, 35.3667]); 
+	
+    var path = d3.geo.path()
+		.projection(projection);
+	// First Modification is too change the projection see above
+	
+
+    var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+    var g = svg.append("g")
+            .call(d3.behavior.zoom()
+			// 2nd Mod, is to allow scale extent to extend backwards from tight start
+            .scaleExtent([.5,100])
+            .on("zoom", zoom));
+	
+	var year = d3.select("p");
+	d3.select("input[type=range]").on("change", function() {
+			    new_year = this.value;
+			    year.text(new_year);
+	    d3.json("kt_north_d3_topojson.json", function (error, us) {
+	        // d3.tsv("kern_almonds_pistachios.tsv", function (error, info) {
+// 	            var rateById = {};
+// 				switch (new_year) {
+// 					case "2007":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.SEVEN; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2007");
+// 						break;
+// 					case "2008":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.EIGHT; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2008");
+// 						break;
+// 					case "2009":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.NINE; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2009");
+// 						break;
+// 					case "2010":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.TEN; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2010");
+// 						break;
+// 					case "2011":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.ELEVEN; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2011");
+// 						break;
+// 					case "2012":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.TWELVE; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2012");
+// 						break;
+// 					case "2013":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.THIRTEEN; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2013");
+// 						break;
+// 					case "2014":
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.FOURTEEN; // FOR ALMONDS 1 if yes
+// 			            });
+// 						console.log("Selected 2014");
+// 						break;
+// 					default:
+// 						info.forEach(function (d) { // <-B
+// 			                rateById[d.id] = +d.SEVEN; // FOR ALMONDS 1 if yes
+// 			            });
+// 				}
+// 				console.log(rateById);
+// 				// info.forEach(function (d) { //
+// 	//                 rateById[d.id] = +d.ALMOND; // FOR ALMONDS 1 if yes
+// 	//             });
+				g.append("g")
+	                    .attr("class", "counties")
+	                    .selectAll("path")
+						.data(topojson.feature(us, us.objects.kt_north_d3).features)
+						//.data(topojson.feature(us, us.objects.kerntest50ts).features)
+	                    //.data(topojson.feature(us, us.objects.counties).features)
+	                    .enter().append("path")
+						.attr("d", path)                    
+						.style("fill", function (d) {
+							switch(new_year){
+								case "2007":
+									return color_pick(d.properties.SEVEN); 
+									break;
+								case "2008":
+									return color_pick(d.properties.EIGHT); 
+									break;
+								case "2009":
+									return color_pick(d.properties.NINE); 
+									break;
+								case "2010":
+									return color_pick(d.properties.TEN); 
+									break;
+								case "2011":
+									return color_pick(d.properties.ELEVEN); 
+									break;
+								case "2012":
+									return color_pick(d.properties.TWELVE); 
+									break;
+								case "2013":
+									return color_pick(d.properties.THIRTEEN); 
+									break;
+								case "2014":
+									return color_pick(d.properties.FOURTEEN); 
+									break;
+								default:
+									return color_pick(d.properties.SEVEN); 
+									break;
+								}
+							//return color(rateById[d.id]);
+	                    });
+				
+	            // g.append("path")
+	 //                    .datum(topojson.mesh(us, us.objects.kerntest50ts, function(a, b) { return a !== b; }))
+	 // 					//.datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+	 //                    .attr("class", "states")
+	 //                    .attr("d", path);
+			
+			});
+		});
+		//});
+
+	// This is a custom color translator in place of a scale since we want to ignore most catagories 
+	function color_pick(x){
+		if (x == "75"){
+			return "#ffbb78";
+		} else if (x == "204"){
+			return "#98df8a";
+		} else {
+			return "white";
+		}
+	}
+		
+    function zoom() {
+        g.attr("transform", "translate("
+                + d3.event.translate
+                + ")scale(" + d3.event.scale + ")");
+			}
+
+</script>
+
+</body>
+
+</html>
