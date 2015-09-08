@@ -36,13 +36,13 @@ Displaying:
 <h4>Permitted Agriculture in North Kern County, California.</h4>
 			<svg width="600" height="80", align = "left">
 			  <circle cy="40" cx="40" r="5", fill = "#969696" ></circle>
-			  <text x="45" y="45" fill="#969696" font-size = 8px>Almonds or Pistachio</text>
+			  <text x="45" y="45" fill="#969696" font-size = 8px>Almond or Pistachio</text>
 			  <circle cy="20" cx="40" r="5", fill = "#dbdb8d" ></circle>
 			  <text x="45" y="25" fill="#dbdb8d" font-size = 8px>Grassland</text>
 			  <circle cy="20" cx="120" r="5", fill = "#31a354"></circle>
 			  <text x="125" y="25" fill="#31a354" font-size = 8px>Alfalfa</text>
-			  <circle cy="20" cx="180" r="5", fill = "#e6550d"></circle>
-			  <text x="185" y="25" fill="#e6550d" font-size = 8px>Fallows</text>
+			  <circle cy="40" cx="180" r="5", fill = "#e6550d"></circle>
+			  <text x="185" y="45" fill="#e6550d" font-size = 8px>Fallow or Barren</text>
 			  <circle cy="20" cx="240" r="5", fill = "#a55194"></circle>
 			  <text x="245" y="25" fill="#a55194" font-size = 8px >Grapes</text>
 			  <circle cy="20" cx="300" r="5", fill = "#bd9e39"></circle>
@@ -225,6 +225,8 @@ Displaying:
 		} else if (x == "36"){
 			return "#31a354"; //alfalfa
 		} else if (x == "61"){
+			return "#e6550d"; //fallows
+		} else if (x == "131"){
 			return "#e6550d"; //fallows
 		} else if (x == "69"){
 			return "#a55194"; //grapes
