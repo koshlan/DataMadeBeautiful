@@ -20,17 +20,40 @@
 </head>
 
 <body>
+	
+Toggle to see crop type in a given year: <br>	
 <span id="range">2009</span>
 <input id="slider" type="range" min="2009" max="2014" value="1987" step="1" />
 <span id="range">2014</span> 
+
+<br>
+<br>
+
+Displaying: 
 <p>2009</p>
 
+
 <h4>Permitted Agriculture in North Kern County, California.</h4>
+			<svg width="600" height="80", align = "left">
+			  <circle cy="40" cx="40" r="5", fill = "#969696" ></circle>
+			  <text x="45" y="45" fill="#969696" font-size = 8px>Almonds or Pistachio</text>
+			  <circle cy="20" cx="40" r="5", fill = "#dbdb8d" ></circle>
+			  <text x="45" y="25" fill="#dbdb8d" font-size = 8px>Grassland</text>
+			  <circle cy="20" cx="120" r="5", fill = "#31a354"></circle>
+			  <text x="125" y="25" fill="#31a354" font-size = 8px>Alfalfa</text>
+			  <circle cy="20" cx="180" r="5", fill = "#e6550d"></circle>
+			  <text x="185" y="25" fill="#e6550d" font-size = 8px>Fallows</text>
+			  <circle cy="20" cx="240" r="5", fill = "#a55194"></circle>
+			  <text x="245" y="25" fill="#a55194" font-size = 8px >Grapes</text>
+			  <circle cy="20" cx="300" r="5", fill = "#bd9e39"></circle>
+			  <text x="305" y="25" fill="#bd9e39" font-size = 8px>Winter Wheat</text>
+			</svg>
+			
 <script type="text/javascript">
 	
 	
 	var width = 960,
-        height = 480;
+        height = 400;
 
 	// var color = d3.scale.threshold()
 //         .domain([.02, .04, .06, .08, .10]) // <-A
@@ -43,8 +66,8 @@
 	var projection = d3.geo.albers()
 	    .translate([width/2, height/2])
 	    .scale(35000)
-	    .rotate([119.0167, 0])
-	    .center([0, 35.3667]); 
+	    .rotate([119.2167, 0])
+	    .center([0, 35.48]); 
 	
     var path = d3.geo.path()
 		.projection(projection);
@@ -239,7 +262,8 @@ built using <i>D3</i> (tested in Mozilla Firefox 40.0.3 on a Mac). You can use t
 	Satistics Service</a>, based primarily on 30-meter resolution Landsat sattelite imagery. 
 <br>
 <br>
-For this region, the most common predicted land covers in each year:
+<img src="DMb.png" align="center">	
+<!-- For this region, the most common predicted land covers in each year:
 <br>
 			<svg width="400" height="265", align = "left">
 			  <circle cy="40" cx="20" r="10", fill = "#969696" ></circle>
@@ -256,7 +280,7 @@ For this region, the most common predicted land covers in each year:
 			  <text x="35" y="245" fill="#bd9e39">Winter Wheat</text>
 			</svg>
 
-<br>
+<br> -->
 </div>
 
 </html>
