@@ -20,47 +20,6 @@
 </head>
 
 <body>
-
-<img src="DMb.png" align="center">	
-
-<h3>Almonds of Wrath?</h3>
-
-I am interested in water scarcity and the remote sensing of landscape level change. California's prolonged drought has focused attention on agricultural water use, particularly almond production. As we consider California's water future, here's a question worth asking: where did all the land for new almond cultivation come from? 
-<br> 
-<br>
-I decided to start by looking at Kern County, the State's largest almond producer.
-<br> 
-<br>
-<b>Navigation</b>: I believe interactive data vizualization can help generate hypotheses. To this end, below is an interactive data vizualization I 
-built using <i>D3</i> (tested in Mozilla Firefox 40.0.3 on a Mac). You can use the slider bar to see the dominant crop cover type within each polygon in a given year, and the map can be further explored by double clicking a region to zoom. Hold the mouse and drag in order to pan. (Be patient this map alone displays over 4000 permitted parcels).
-<br>
-<br><b>Data Sources</b>: Polygons represent agriculturally boundaries permitted in 2014, 
-	based on data from the <a href="http://www.kernag.com/gis/gis-data.asp">
-	Kern County Office of Agricultural and Measurement Standards</a>.
-	Cover-type classification of each parcel is assigend using a raster crop cover-type data layer released by
-	the <a href = "http://nassgeodata.gmu.edu/CropScape/"> National Agricultural 
-	Satistics Service</a>, based primarily on 30-meter resolution Landsat sattelite imagery. 
-<br>
-<br>
-The most common predicted land covers under active cultivation in each year:
-<br>
-			<svg width="400" height="265", align = "left">
-			  <circle cy="40" cx="20" r="10", fill = "#969696" ></circle>
-			  <text x="35" y="45" fill="#969696">Almonds or Pistachio</text>
-			  <circle cy="80" cx="20" r="10", fill = "#dbdb8d" ></circle>
-			  <text x="35" y="85" fill="#dbdb8d">Grassland</text>
-			  <circle cy="120" cx="20" r="10", fill = "#31a354"></circle>
-			  <text x="35" y="125" fill="#31a354">Alfalfa</text>
-			  <circle cy="160" cx="20" r="10", fill = "#e6550d"></circle>
-			  <text x="35" y="165" fill="#e6550d">Fallows</text>
-			  <circle cy="200" cx="20" r="10", fill = "#a55194"></circle>
-			  <text x="35" y="205" fill="#a55194" >Grapes</text>
-			  <circle cy="240" cx="20" r="10", fill = "#bd9e39"></circle>
-			  <text x="35" y="245" fill="#bd9e39">Winter Wheat</text>
-			</svg>
-
-<br>
-
 <span id="range">2009</span>
 <input id="slider" type="range" min="2009" max="2014" value="1987" step="1" />
 <span id="range">2014</span> 
@@ -71,7 +30,7 @@ The most common predicted land covers under active cultivation in each year:
 	
 	
 	var width = 960,
-        height = 600;
+        height = 480;
 
 	// var color = d3.scale.threshold()
 //         .domain([.02, .04, .06, .08, .10]) // <-A
@@ -260,6 +219,44 @@ The most common predicted land covers under active cultivation in each year:
 </script>
 
 </body>
+<div>
+<h3>Almonds of Wrath?</h3>
 
+I am interested in water scarcity and the remote sensing of landscape level change. California's prolonged drought has focused attention on agricultural water use, particularly almond production. As we consider California's water future, here's a question worth asking: where did all the land for new almond cultivation come from? 
+<br> 
+<br>
+I decided to start by looking at Kern County, the State's largest almond producer.
+<br> 
+<br>
+<b>Navigation</b>:  Data vizualization can help generate hypotheses. To this end, below is an interactive data vizualization I 
+built using <i>D3</i> (tested in Mozilla Firefox 40.0.3 on a Mac). You can use the slider bar to see the dominant crop cover type within each polygon in a given year, and the map can be further explored by double clicking a region to zoom. Hold the mouse and drag in order to pan. (Be patient this map alone displays over 4000 permitted parcels).
+<br>
+<br><b>Data Sources</b>: Polygons represent agriculturally boundaries permitted in 2014, 
+	based on data from the <a href="http://www.kernag.com/gis/gis-data.asp">
+	Kern County Office of Agricultural and Measurement Standards</a>.
+	Previous crop-type classification from 2009-2014 was assigned by taking the most common crop-type value within the polygon from raster grids released by
+	the <a href = "http://nassgeodata.gmu.edu/CropScape/"> National Agricultural 
+	Satistics Service</a>, based primarily on 30-meter resolution Landsat sattelite imagery. 
+<br>
+<br>
+For this region, the most common predicted land covers in each year:
+<br>
+			<svg width="400" height="265", align = "left">
+			  <circle cy="40" cx="20" r="10", fill = "#969696" ></circle>
+			  <text x="35" y="45" fill="#969696">Almonds or Pistachio</text>
+			  <circle cy="80" cx="20" r="10", fill = "#dbdb8d" ></circle>
+			  <text x="35" y="85" fill="#dbdb8d">Grassland</text>
+			  <circle cy="120" cx="20" r="10", fill = "#31a354"></circle>
+			  <text x="35" y="125" fill="#31a354">Alfalfa</text>
+			  <circle cy="160" cx="20" r="10", fill = "#e6550d"></circle>
+			  <text x="35" y="165" fill="#e6550d">Fallows</text>
+			  <circle cy="200" cx="20" r="10", fill = "#a55194"></circle>
+			  <text x="35" y="205" fill="#a55194" >Grapes</text>
+			  <circle cy="240" cx="20" r="10", fill = "#bd9e39"></circle>
+			  <text x="35" y="245" fill="#bd9e39">Winter Wheat</text>
+			</svg>
+
+<br>
+</div>
 
 </html>
