@@ -9,16 +9,11 @@
     <script type="text/javascript" src="../../lib/topojson.js"></script>
 
     <style>
-        .states {
-			
-            fill: #eee; 
-            stroke: #000;
-            stroke-linejoin: round;
-        }
         .counties {
 			
             fill: #eee; 
             stroke: #000;
+			stroke-width="1";
             stroke-linejoin: round;
         }
     </style>
@@ -34,7 +29,7 @@
 built in D3 and tested using Mozilla Firefox 40.0.3. Use the slider bar to select a year. 
 The map can be further explored by double clicking a region to zoom. Hold the mouse and drag in order to pan. 
 <br>
-<br><b>Data</b>: Polygons represent agriculturally permited boundaries in 2004, 
+<br><b>Data</b>: Polygons represent agriculturally permited boundaries in 2014, 
 	based on data from the <a href="http://www.kernag.com/gis/gis-data.asp">
 	Kern County Office of Agricultural and Measurement Standards</a>.
 	Cover-type classification of each parcel is assigend using a raster crop cover-type data layer released by
@@ -42,17 +37,31 @@ The map can be further explored by double clicking a region to zoom. Hold the mo
 	Satistics Service</a>, based primarily on 30-meter resolution Landsat sattelite imagery. 
 <br>
 <br>
+The most common predicted land covers under active cultivation in each year:
+<br>
+			<svg width="400" height="265", align = "left">
+			  <circle cy="40" cx="20" r="10", fill = "#969696" ></circle>
+			  <text x="35" y="45" fill="#969696">Almonds or Pistachio</text>
+			  <circle cy="80" cx="20" r="10", fill = "#dbdb8d" ></circle>
+			  <text x="35" y="85" fill="#dbdb8d">Grassland</text>
+			  <circle cy="120" cx="20" r="10", fill = "#31a354"></circle>
+			  <text x="35" y="125" fill="#31a354">Alfalfa</text>
+			  <circle cy="160" cx="20" r="10", fill = "#e6550d"></circle>
+			  <text x="35" y="165" fill="#e6550d">Fallows</text>
+			  <circle cy="200" cx="20" r="10", fill = "#a55194"></circle>
+			  <text x="35" y="205" fill="#a55194" >Grapes</text>
+			  <circle cy="240" cx="20" r="10", fill = "#bd9e39"></circle>
+			  <text x="35" y="245" fill="#bd9e39">Winter Wheat</text>
+			</svg>
 
-Land cover under active cultivation of Almonds (orange) or Pistachio (green) nuts are shown. 
+<br>
 
 
 
-
-
-<span id="range">2007</span>
-<input id="slider" type="range" min="2007" max="2014" value="1987" step="1" />
+<span id="range">2009</span>
+<input id="slider" type="range" min="2009" max="2014" value="1987" step="1" />
 <span id="range">2014</span> 
-<p>2007</p>
+<p>2009</p>
 
 <h4>Permitted Agriculture in North Kern County, California.</h4>
 <script type="text/javascript">
@@ -202,7 +211,7 @@ Land cover under active cultivation of Almonds (orange) or Pistachio (green) nut
 									return color_pick(d.properties.FOURTEEN); 
 									break;
 								default:
-									return color_pick(d.properties.SEVEN); 
+									return color_pick(d.properties.NINE); 
 									break;
 								}
 							//return color(rateById[d.id]);
@@ -220,10 +229,20 @@ Land cover under active cultivation of Almonds (orange) or Pistachio (green) nut
 
 	// This is a custom color translator in place of a scale since we want to ignore most catagories 
 	function color_pick(x){
-		if (x == "75"){
-			return "#ffbb78";
+		if (x == "75"){ 
+			return "#969696"; // Almonds;
 		} else if (x == "204"){
-			return "#98df8a";
+			return "#969696"; // Pistachios
+		} else if (x == "176"){
+			return  "#dbdb8d";// Grass/Pasture 
+		} else if (x == "24"){
+			return "#bd9e39"; //winter wheat
+		} else if (x == "36"){
+			return "#31a354"; //alfalfa
+		} else if (x == "61"){
+			return "#e6550d"; //fallows
+		} else if (x == "69"){
+			return "#a55194"; //grapes
 		} else {
 			return "white";
 		}
